@@ -1,0 +1,35 @@
+.imgPerson {
+     width: 460px;
+     height: 473px;
+     border-radius: 10px;
+}
+
+.imgParts {
+     width: 327px;
+     height: 332px;
+     border: 10px solid #FFFFFF;
+     border-radius: 10px;
+     margin-bottom: 20px;
+     position: relative;
+     top: -255px;
+     right: -175px;
+}
+
+.pTag p {
+     color: #737373;
+}
+
+@media only screen and (max-width: 600px) {
+     .imgPerson {
+          width: 100%;
+     }
+}
+
+@media only screen and (max-width: 600px) {
+     .imgParts {
+          width: 80%;
+          position: relative;
+          top: -55px;
+          right: -35px;
+     }
+}

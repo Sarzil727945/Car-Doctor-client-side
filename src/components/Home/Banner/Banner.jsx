@@ -14,44 +14,8 @@ const Banner = () => {
           <div>
                <div id="carouselExampleControls" class="carousel slide " data-bs-ride="carousel">
                     <div class="carousel-inner position-relative slidBorder">
-                         <div class="carousel-item active ">
-                              <img src={img1} class="d-block w-100" alt="..." />
-                              <div class="carousel-caption d-md-block text-start bg-dark bg-opacity-50 h-100 w-100">
-                                   <div className='p-lg-3 text-position'>
-                                        <div className=' ps-lg-5 ms-lg-3'>
-                                             <div className=' col-lg-4 mb-3'>
-                                                  <h2 className=' display-4 fw-semibold mb-3 pt-5'>Affordable Price For Car Servicing</h2>
-                                             </div>
-                                             <p className=' fs-6 col-lg-5 fw-semibold'>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
-
-                                             <div className='mt-3'>
-                                                  <button type="button" class="btn btn-danger me-3 mb-2">Discover More</button>
-                                                  <button type="button" class="btn text-light btn-outline-info mb-2">Latest Project</button>
-                                             </div>
-                                        </div>
-                                   </div>
-                              </div>
-                         </div>
-                         <div class="carousel-item">
-                              <img src={img2} class="d-block w-100" alt="..." />
-                              <div class="carousel-caption d-md-block text-start bg-dark bg-opacity-50 h-100 w-100">
-                                   <div className='p-lg-3 text-position'>
-                                        <div className=' ps-lg-5 ms-lg-3'>
-                                             <div className=' col-lg-4 mb-3'>
-                                                  <h2 className=' display-4 fw-semibold mb-3 pt-5'>Affordable Price For Car Servicing</h2>
-                                             </div>
-                                             <p className=' fs-6 col-lg-5 fw-semibold'>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
-
-                                             <div className='mt-3'>
-                                                  <button type="button" class="btn btn-danger me-3 mb-2">Discover More</button>
-                                                  <button type="button" class="btn text-light btn-outline-info mb-2">Latest Project</button>
-                                             </div>
-                                        </div>
-                                   </div>
-                              </div>
-                         </div>
-                         <div class="carousel-item">
-                              <img src={img3} class="d-block w-100" alt="..." />
+                         <div class="carousel-item active">
+                              <img src={img5} class="d-block w-100" alt="..." />
                               <div class="carousel-caption d-md-block text-start bg-dark bg-opacity-50 h-100 w-100">
                                    <div className='p-lg-3 text-position'>
                                         <div className=' ps-lg-5 ms-lg-3'>
@@ -87,7 +51,43 @@ const Banner = () => {
                               </div>
                          </div>
                          <div class="carousel-item">
-                              <img src={img5} class="d-block w-100" alt="..." />
+                              <img src={img3} class="d-block w-100" alt="..." />
+                              <div class="carousel-caption d-md-block text-start bg-dark bg-opacity-50 h-100 w-100">
+                                   <div className='p-lg-3 text-position'>
+                                        <div className=' ps-lg-5 ms-lg-3'>
+                                             <div className=' col-lg-4 mb-3'>
+                                                  <h2 className=' display-4 fw-semibold mb-3 pt-5'>Affordable Price For Car Servicing</h2>
+                                             </div>
+                                             <p className=' fs-6 col-lg-5 fw-semibold'>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
+
+                                             <div className='mt-3'>
+                                                  <button type="button" class="btn btn-danger me-3 mb-2">Discover More</button>
+                                                  <button type="button" class="btn text-light btn-outline-info mb-2">Latest Project</button>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="carousel-item ">
+                              <img src={img2} class="d-block w-100" alt="..." />
+                              <div class="carousel-caption d-md-block text-start bg-dark bg-opacity-50 h-100 w-100">
+                                   <div className='p-lg-3 text-position'>
+                                        <div className=' ps-lg-5 ms-lg-3'>
+                                             <div className=' col-lg-4 mb-3'>
+                                                  <h2 className=' display-4 fw-semibold mb-3 pt-5'>Affordable Price For Car Servicing</h2>
+                                             </div>
+                                             <p className=' fs-6 col-lg-5 fw-semibold'>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
+
+                                             <div className='mt-3'>
+                                                  <button type="button" class="btn btn-danger me-3 mb-2">Discover More</button>
+                                                  <button type="button" class="btn text-light btn-outline-info mb-2">Latest Project</button>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="carousel-item ">
+                              <img src={img1} class="d-block w-100" alt="..." />
                               <div class="carousel-caption d-md-block text-start bg-dark bg-opacity-50 h-100 w-100">
                                    <div className='p-lg-3 text-position'>
                                         <div className=' ps-lg-5 ms-lg-3'>
