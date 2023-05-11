@@ -8,23 +8,24 @@ import Navbar from 'react-bootstrap/Navbar';
 import ActiveLink from '../ActiveLink/ActiveLink';
 import { HiOutlineLockClosed } from 'react-icons/hi';
 import { BiSearch } from 'react-icons/bi';
-import logo  from '../../assets/logo.svg'
+import logo from '../../assets/logo.svg'
+import { AuthContext } from '../../Provider/AuthProvider';
 // import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const Header = () => {
-     // const { user, logOut } = useContext(AuthContext)
+     const { user, logOut } = useContext(AuthContext)
 
-     // // logOut part start
-     // const handelLogOut = () => {
-     //      logOut()
-     //           .then(() => {
-     //                // Sign-out successful.
-     //           })
-     //           .catch((error) => {
-     //                // An error happened.
-     //           });
-     // }
-     // // logOut part end
+     // logOut part start
+     const handelLogOut = () => {
+          logOut()
+               .then(() => {
+                    // Sign-out successful.
+               })
+               .catch((error) => {
+                    // An error happened.
+               });
+     }
+     // logOut part end
 
      return (
           <div className='fixed-top'>
@@ -45,11 +46,23 @@ const Header = () => {
                                    <ActiveLink to="/services">Services</ActiveLink>
                                    <ActiveLink to="/blog">Blog</ActiveLink>
                                    <ActiveLink to="/contact">Contact</ActiveLink>
+                                   
+                                   {/* <div className=' ms-5 d-flex align-content-center text-center'>
+                                        <div>
+                                             <span className='fs-3 me-3 '><HiOutlineLockClosed /></span>
+                                             <span className='fs-3 me-3'><BiSearch /></span>
+                                        </div>
+                                        <div className='mt-lg-1'><button type="button" className="btn btn-outline-danger py-2 px-3">Appointment</button></div>
+                                   </div> */}
+
                               </Nav>
-                              <Form className=' d-flex align-content-center text-center'>
-                               <div className='fs-3 me-3'><HiOutlineLockClosed/></div>
-                               <div className='fs-3 me-3'><BiSearch/></div>
-                               <div className='mt-lg-1'><button type="button" className="btn btn-outline-danger py-2 px-3">Appointment</button></div>
+                              <Form className=' d-flex '>
+                                   {
+                                        user ? <div>
+                                             <img title={user.displayName} className='imgStyle me-3' src={user.photoURL} alt="" />
+                                             <Button onClick={handelLogOut} variant="info" className='py-2'>Log Out</Button>
+                                        </div> : <ActiveLink to="/login">Login</ActiveLink>
+                                   }
                               </Form>
                          </Navbar.Collapse>
                     </Container>

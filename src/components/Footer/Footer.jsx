@@ -11,7 +11,7 @@ import logo from '../../assets/logo.svg'
 const Footer = () => {
      return (
           <div className='mt-5 pt-5'>
-               <footer className="footer container-fluid mt-5 sticky-lg-top py-5">
+               <footer className="footer container-fluid mt-5 sticky-lg-top pt-5">
                     <div className="container p-2">
                          <div className="row d-flex">
                               <div className="col-lg-3">

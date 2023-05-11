@@ -10,7 +10,7 @@ const SubService = ({ data }) => {
      return (
           <div className='col-lg-4 mb-3'>
                <div>
-                    <Card className=' '>
+                    <Card className='mt-5'>
                          <Card.Body>
                               <img className=' w-100 rounded imageStyle' src={img} alt="" />
                               <h5 class="card-title" className=' my-3 fw-semibold fs-3'>{title}</h5>
