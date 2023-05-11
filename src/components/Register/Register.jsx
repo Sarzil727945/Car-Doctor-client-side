@@ -1,27 +1,22 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import img from '../../assets/images/login/login.svg'
-import { AiFillEyeInvisible, AiOutlineGithub, AiFillEye } from 'react-icons/ai'
-// import { ImGoogle2 } from 'react-icons/im'
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-// import { AuthContext } from '../../AuthProvider/AuthProvider';
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Provider/AuthProvider';
+import { updateProfile } from 'firebase/auth';
+import Swal from 'sweetalert2';
 
 const Register = () => {
      const [error, setError] = useState('')
      const [success, setSuccess] = useState('')
+     const [email, setEmail] = useState("")
+     const [emailError, setEmailError] = useState('')
      const [passwordShown, setPasswordShown] = useState(false);
-     // const [user, setUser] = useState('')
-     // const navigate = useNavigate()
 
-     // const location = useLocation()
+     const { createUser } = useContext(AuthContext)
+     const navigate = useNavigate()
 
-     // const from = location.state?.from?.pathname || '/';
-
-     // const { signIn, googlSignIn, githubSingIn, resetPassword } = useContext(AuthContext)
-
-     // const emailRef = useRef()
-
-     // passwordShown function start 
      // passwordShown function start 
      const [passwordIcon, setPasswordIcon] = useState(false)
      const [conformPasswordIcon, setConformPasswordIcon] = useState(false)
@@ -37,7 +32,6 @@ const Register = () => {
           setConformPasswordIcon(!conformPasswordIcon)
      }
      // passwordShown function end
-     // passwordShown function end
 
      // main form part start 
      const handelRegister = (event) => {
@@ -51,71 +45,67 @@ const Register = () => {
           const password = form.password.value;
           const conformPassword = form.conformPassword.value;
 
-          // // Signed in part start
-          // signIn(email, password)
-          //      .then((userCredential) => {
-          //           const currentUser = userCredential.user;
-          //           form.reset()
-          //           navigate(from, { replace: true })
-          //           setSuccess('Sign in successFull')
-          //      })
-          //      .catch((error) => {
-          //           const errorMessage = error.message;
-          //           setError(errorMessage)
-          //      });
-          // // Signed in part end
+          if (password !== conformPassword) {
+               setError("Don't mach this password")
+               return
+          }
+          else if (password.length < 6) {
+               setError('Please The password is less than 6 characters')
+               return
+          }
+
+          // Signed up part start
+          createUser(email, password)
+               .then((userCredential) => {
+                    const currentUser = userCredential.user;
+                    setSuccess('Create user account successFull')
+                    if (currentUser) {
+                         Swal.fire({
+                              title: 'Success!',
+                              text: 'Your Account Successfully',
+                              icon: 'success',
+                              confirmButtonText: 'Ok'
+                         })
+                    }
+                    form.reset()
+                    navigate('/')
+                    setEmail('')
+                    upDataUser(currentUser, name, photoUrl)
+               })
+               .catch((error) => {
+                    const errorMessage = error.message;
+                    setError(errorMessage)
+               });
+          // Signed up part end
      }
      // main form part end
 
-     // // handelGoogleRegister part start
-     // const handelGoogleRegister = () => {
-     //      googlSignIn()
-     //           .then((result) => {
-     //                const user = result.user;
-     //                setUser(user)
-     //                navigate(from, { replace: true })
-     //           }).catch((error) => {
-     //                const errorMessage = error.message;
-     //                setError(errorMessage)
-     //           });
-     // }
-     // // handelGoogleRegister part end
+     // valid email function start 
+     const handelEmail = (event) => {
+          const emailInput = event.target.value
+          if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(emailInput)) {
+               setEmailError('Please provide a valid email')
+          }
+          else {
+               setEmailError('')
+          }
+          setEmail(emailInput)
+     }
+     // valid email function end
 
-     // handelGitHubRegister part start 
-     // const handelGitHubRegister = () => {
-     //      githubSingIn()
-     //           .then((result) => {
-     //                const user = result.user;
-     //                setUser(user)
-     //                navigate(from, { replace: true })
-     //           }).catch((error) => {
-     //                const errorMessage = error.message;
-     //                setError(errorMessage)
-     //           });
-     // }
-     // handelGitHubRegister part end
+     const upDataUser = (user, name, photoUrl) => {
+          updateProfile(user, {
+               displayName: name,
+               photoURL: photoUrl
+          })
+               .then(() => {
+                    // Profile updated!
+                    // ...
+               }).catch((error) => {
+                    setError(error.message)
+               });
+     }
 
-     // // Reset Password part start 
-     // const handelResetPassword = () => {
-     //      const email = emailRef.current.value;
-     //      if (!email) {
-     //           alert('Please provide your email')
-     //           return
-     //      }
-
-     //      resetPassword(email)
-     //           .then(() => {
-     //                alert('Please check you email')
-     //           })
-     //           .catch((error) => {
-     //                const errorMessage = error.message;
-     //                setError(errorMessage)
-     //           });
-
-     // }
-     // // Reset Password part end
-
-     // console.log(user);
      return (
           <div className='mt-5 py-lg-5 row container'>
                <div className=' col-lg-6 my-lg-5'>
@@ -137,14 +127,19 @@ const Register = () => {
                                         <Form.Control type="text" name='photoUrl' placeholder="Photo URL" />
                                    </Form.Group>
 
-                                   <Form.Group className="mb-3" controlId="formBasicEmail">
+                                   <Form.Group className="mb-2" controlId="formBasicEmail">
                                         <Form.Label>Email</Form.Label>
                                         <Form.Control type="email" name='email'
+                                             defaultValue={email}
+                                             onChange={handelEmail}
                                              placeholder="Email" required
                                         />
                                    </Form.Group>
+                                   {
+                                        emailError && <span className=' text-danger pb-5'>{emailError}</span>
+                                   }
 
-                                   <Form.Group className="mb-3" controlId="formBasicPassword">
+                                   <Form.Group className="my-3" controlId="formBasicPassword">
                                         <Form.Label>Password</Form.Label>
                                         <div className='parentPasswordShow position-relative'>
                                              <div>
@@ -172,23 +167,12 @@ const Register = () => {
                                              </div>
                                         </div>
                                    </Form.Group>
-
                                    <p className=' text-danger'>{error}</p>
                                    <p className=' text-success'>{success}</p>
                                    <div className="d-grid gap-2 mt-4">
                                         <Button variant="danger" type="submit">
                                              <b>Sign Up</b>
                                         </Button>
-                                        {/* <div>
-                                        <small>Create your new Password?</small>
-                                        <button onClick={handelResetPassword} className='btn btn-link'>Reset Password</button>
-                                   </div> */}
-                                        {/* <div className="d-grid gap-2 mt-3 mb-2 col-9 mx-auto">
-                                        <Button onClick={handelGoogleRegister} className="btn btn-success" type="button"> <span className=' fs-5 text-light'><ImGoogle2 /></span> Sign-in with Google</Button>
-                                   </div> */}
-                                        {/* <div className="d-grid gap-2 mb-3 col-9 mx-auto">
-                                        <Button onClick={handelGitHubRegister} className="btn btn-dark" type="button"> <span className=' fs-5 text-light'><AiOutlineGithub /></span> Sign-in with GitHub</Button>
-                                   </div> */}
                                         <div className=' my-3 text-center'>
                                              <small className='me-1 fs-6'>Have an account? </small>
                                              <Link to='/login' className=' text-decoration-none text-danger fw-semibold'>Login</Link>
