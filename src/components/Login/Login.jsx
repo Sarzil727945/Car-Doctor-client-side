@@ -15,11 +15,14 @@ const Login = () => {
      const [email, setEmail] = useState("")
      const [emailError, setEmailError] = useState('')
      const [user, setUser] = useState('')
-
-     const {signIn, resetPassword, googlSignIn } = useContext(AuthContext)
+     const location = useLocation()
      const navigate = useNavigate()
+
+     const {signIn, resetPassword, googlSignIn, githubSingIn } = useContext(AuthContext)
+     const from = location.state?.from?.pathname || '/';
      const emailRef = useRef();
 
+     console.log(from);
      // passwordShown function start
      const [passwordIcon, setPasswordIcon] = useState(false)
 
@@ -37,16 +40,18 @@ const Login = () => {
           const form = event.target
           const email = form.email.value;
           const password = form.password.value;
-          console.log(email, password);
 
           // Signed in part start
           signIn(email, password)
+
                .then((userCredential) => {
                     const currentUser = userCredential.user;
-                    form.reset()
-                    setEmail('')
-                    // navigate(from, { replace: true })
-                    setSuccess('Sign in successFull')
+
+                    // if (!currentUser.emailVerified) {
+                    //      alert('not email')
+                    //      return
+                    // }
+                    
                     if (currentUser) {
                          Swal.fire({
                               title: 'Success!',
@@ -55,6 +60,10 @@ const Login = () => {
                               confirmButtonText: 'Ok'
                          })
                     }
+                    form.reset()
+                    setEmail('')
+                    navigate(from, { replace: true })
+                    setSuccess('Sign in successFull')
                })
                .catch((error) => {
                     const errorMessage = error.message;
@@ -82,8 +91,17 @@ const Login = () => {
           googlSignIn()
                .then((result) => {
                     const user = result.user;
+                    
+                    if (user) {
+                         Swal.fire({
+                              title: 'Success!',
+                              text: 'Login Success !!',
+                              icon: 'success',
+                              confirmButtonText: 'Ok'
+                         })
+                    }
                     setUser(user)
-                    // navigate(from, { replace: true })
+                    navigate(from, { replace: true })
                }).catch((error) => {
                     const errorMessage = error.message;
                     setError(errorMessage)
@@ -92,17 +110,25 @@ const Login = () => {
      // handelGoogleRegister part end
 
      // handelGitHubRegister part start 
-     // const handelGitHubRegister = () => {
-     //      githubSingIn()
-     //           .then((result) => {
-     //                const user = result.user;
-     //                setUser(user)
-     //                navigate(from, { replace: true })
-     //           }).catch((error) => {
-     //                const errorMessage = error.message;
-     //                setError(errorMessage)
-     //           });
-     // }
+     const handelGitHubRegister = () => {
+          githubSingIn()
+               .then((result) => {
+                    const user = result.user;
+                    if (user) {
+                         Swal.fire({
+                              title: 'Success!',
+                              text: 'Login Success !!',
+                              icon: 'success',
+                              confirmButtonText: 'Ok'
+                         })
+                    }
+                    setUser(user)
+                    navigate(from, { replace: true })
+               }).catch((error) => {
+                    const errorMessage = error.message;
+                    setError(errorMessage)
+               });
+     }
      // handelGitHubRegister part end
 
      // Reset Password part start 
@@ -127,7 +153,7 @@ const Login = () => {
 
      // console.log(user);
      return (
-          <div className='mt-5 py-lg-5 row container'>
+          <div className='mt-lg-5 py-lg-5 row container-lg'>
                <div className=' col-lg-6 mt-lg-5 pt-lg-5 '>
                     <img className=' img-fluid w-100 imgHeight' src={img} alt="" />
                </div>
@@ -179,9 +205,9 @@ const Login = () => {
                                         <div className="d-grid gap-2 mt-3 mb-2 col-9 mx-auto">
                                         <Button onClick={handelGoogleRegister} className="btn btn-success" type="button"> <span className=' fs-5 text-light'><ImGoogle2 /></span> Sign-in with Google</Button>
                                    </div>
-                                        {/* <div className="d-grid gap-2 mb-3 col-9 mx-auto">
+                                        <div className="d-grid gap-2 mb-3 col-9 mx-auto">
                                         <Button onClick={handelGitHubRegister} className="btn btn-dark" type="button"> <span className=' fs-5 text-light'><AiOutlineGithub /></span> Sign-in with GitHub</Button>
-                                   </div> */}
+                                   </div>
                                         <div className=' my-3 text-center'>
                                              <small className='me-1 fs-6'>Have an account? </small>
                                              <Link to='/register' className=' text-decoration-none text-danger fw-semibold'>Register</Link>

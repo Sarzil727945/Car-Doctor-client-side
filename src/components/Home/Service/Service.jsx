@@ -4,11 +4,15 @@ import SubService from './SubService/SubService';
 
 const Service = () => {
      const [jsonData, setJsonData] = useState([]);
+     const [isLoading, setIsLoading] = useState(true);
 
      useEffect(() => {
-          fetch('../../../../public/services.json')
+          fetch('http://localhost:5000/server')
                .then(res => res.json())
-               .then(data => setJsonData(data))
+               .then(data => {
+                    setJsonData(data);
+                    setIsLoading(false);
+               })
      }, [])
      return (
           <div className=' servicePosition mt-5'>
@@ -17,6 +21,15 @@ const Service = () => {
                     <h2 className='fs-1 my-3'>Our Service Area</h2>
                     <p>the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. </p>
                </div>
+
+               {
+                    isLoading && <div className="text-center my-5">
+                    <div className="spinner-border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+               }
+               
                <div className='row'>
                     {
                          jsonData.map(data => <SubService

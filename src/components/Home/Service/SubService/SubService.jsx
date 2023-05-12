@@ -6,7 +6,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 
 const SubService = ({ data }) => {
      console.log(data);
-     const { img, title, price } = data
+     const {_id, img, title, price } = data
      return (
           <div className='col-lg-4 mb-3'>
                <div>
@@ -17,7 +17,7 @@ const SubService = ({ data }) => {
                               <div className=' d-flex justify-content-between align-content-center'>
                               <Card.Title className=' text-danger'>Price: ${price}</Card.Title>
                                    <Button variant=" light">
-                                        <Link className='text-decoration-none fs-5 text-danger' > <AiOutlineArrowRight/> </Link>
+                                        <Link to={`/checkout/${_id}`} className='text-decoration-none fs-5 text-danger' > <AiOutlineArrowRight/> </Link>
                                    </Button>
                               </div>
                          </Card.Body>

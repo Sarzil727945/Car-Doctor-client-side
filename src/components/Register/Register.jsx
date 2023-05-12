@@ -4,7 +4,7 @@ import img from '../../assets/images/login/login.svg'
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
-import { updateProfile } from 'firebase/auth';
+import { sendEmailVerification, updateProfile } from 'firebase/auth';
 import Swal from 'sweetalert2';
 
 const Register = () => {
@@ -68,6 +68,7 @@ const Register = () => {
                          })
                     }
                     form.reset()
+                    // Verification(currentUser)
                     navigate('/')
                     setEmail('')
                     upDataUser(currentUser, name, photoUrl)
@@ -92,6 +93,15 @@ const Register = () => {
           setEmail(emailInput)
      }
      // valid email function end
+
+     //   // emailVerification part start 
+     //   const Verification = (currentUser) => {
+     //      sendEmailVerification(currentUser)
+     //           .then(() => {
+     //                alert('Verification your email')
+     //           });
+     // }
+     // // emailVerification part end
 
      const upDataUser = (user, name, photoUrl) => {
           updateProfile(user, {
