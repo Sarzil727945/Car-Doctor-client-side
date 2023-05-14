@@ -10,10 +10,12 @@ import { HiOutlineLockClosed } from 'react-icons/hi';
 import { BiSearch } from 'react-icons/bi';
 import logo from '../../assets/logo.svg'
 import { AuthContext } from '../../Provider/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 // import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const Header = () => {
      const { user, logOut } = useContext(AuthContext)
+     const navigate = useNavigate();
 
      // logOut part start
      const handelLogOut = () => {
@@ -42,11 +44,15 @@ const Header = () => {
                                    navbarScroll
                               >
                                    <ActiveLink to="/">Home</ActiveLink>
+                                   {
+                                        (user?.email) &&
+                                             <ActiveLink to="/bookings">My Bookings</ActiveLink>
+                                   }
                                    <ActiveLink to="/about">About</ActiveLink>
                                    <ActiveLink to="/services">Services</ActiveLink>
                                    <ActiveLink to="/blog">Blog</ActiveLink>
                                    <ActiveLink to="/contact">Contact</ActiveLink>
-                                   
+
                                    {/* <div className=' ms-5 d-flex align-content-center text-center'>
                                         <div>
                                              <span className='fs-3 me-3 '><HiOutlineLockClosed /></span>

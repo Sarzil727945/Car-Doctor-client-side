@@ -8,14 +8,14 @@ const CheckOut = () => {
 
      const { user } = useContext(AuthContext)
      const car = useLoaderData();
-     const { _id, img, price } = car;
+     const { _id, img, price, title} = car;
 
      const formHandel = (event) => {
           event.preventDefault();
           const form = event.target;
           const fastName = form.fastName.value;
           const lastName = form.lastName.value;
-          const number = form.number?.value;
+          const number = form.number.value;
           const email = user?.email;
           const date = form.date.value;
           const message = form.message.value;
@@ -28,17 +28,33 @@ const CheckOut = () => {
                number,
                email,
                date,
-               message
+               message,
+               img,
+               title,
           }
 
-          form.reset();
-          Swal.fire({
-               title: 'Success!',
-               text: 'Your Order Success !!',
-               icon: 'success',
-               confirmButtonText: 'Ok'
+          // server data post 
+          fetch('http://localhost:5000/bookings', {
+               method:'POST',
+               headers:{
+                    'content-type':'application/json'
+               },
+               body:JSON.stringify(order)
+          })
+          .then(res=>res.json())
+          .then(data=>{
+               if (data.insertedId) {
+                    Swal.fire({
+                         title: 'Success!',
+                         text: 'Your Order Success !!',
+                         icon: 'success',
+                         confirmButtonText: 'Ok'
+                    }) 
+               }
           })
 
+          form.reset();
+         
           console.log(order);
 
      }
