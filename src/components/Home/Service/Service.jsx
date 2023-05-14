@@ -7,7 +7,7 @@ const Service = () => {
      const [isLoading, setIsLoading] = useState(true);
 
      useEffect(() => {
-          fetch('http://localhost:5000/server')
+          fetch('https://mren-server-project.vercel.app/server')
                .then(res => res.json())
                .then(data => {
                     setJsonData(data);

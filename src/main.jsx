@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       {
         path:'/checkout/:id',
         element: <PrivateRoute><CheckOut></CheckOut></PrivateRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/server/${params.id}`)
+        loader: ({params}) => fetch(`https://mren-server-project.vercel.app/server/${params.id}`)
       },
       {
         path:'/bookings',

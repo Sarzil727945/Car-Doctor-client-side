@@ -6,7 +6,7 @@ const Bookings = () => {
      const { user } = useContext(AuthContext);
      const [bookings, setBookings] = useState([])
 
-     const url = `http://localhost:5000/bookings?email=${user.email}`;
+     const url = `https://mren-server-project.vercel.app/bookings?email=${user.email}`;
      useEffect(() => {
           fetch(url)
                .then(res => res.json())
@@ -17,7 +17,7 @@ const Bookings = () => {
      const handelDelete = (id) => {
           const proceed = confirm('are you sure')
           if (proceed) {
-               fetch(`http://localhost:5000/bookings/${id}`, {
+               fetch(`https://mren-server-project.vercel.app/bookings/${id}`, {
                     method: 'DELETE'
                })
                     .then(res => res.json())
@@ -36,7 +36,7 @@ const Bookings = () => {
 
      // server data update start
      const handelUpdate = (id) =>{
-          fetch(`http://localhost:5000/bookings/${id}`, {
+          fetch(`https://mren-server-project.vercel.app/bookings/${id}`, {
                method: 'PATCH',
                headers:{
                     'content-type':'application/json'
