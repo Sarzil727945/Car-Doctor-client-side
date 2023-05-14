@@ -4,8 +4,8 @@ import { Button } from 'react-bootstrap';
 import { TiDelete } from 'react-icons/ti'
 import Swal from 'sweetalert2';
 
-const SubBookings = ({ data, handelDelete }) => {
-     const { img, title, price, date, _id } = data;
+const SubBookings = ({ data, handelDelete, handelUpdate }) => {
+     const { img, title, price, date, _id, status } = data;
 
      return (
           <div>
@@ -24,7 +24,12 @@ const SubBookings = ({ data, handelDelete }) => {
                     </div>
                     <div className="col-lg-2 fw-semibold">{price}</div>
                     <div className="col-lg-2 fw-semibold">{date}</div>
-                    <div className="col-lg-2 fw-semibold">Details</div>
+                    <div className="col-lg-2 fw-semibold">
+                         {
+                              status === 'confirm' ? <span className=' fw-bold text-danger'>Confirmed</span> :
+                              <button onClick={() => handelUpdate(_id)} type="button" class="btn btn-danger">Please Confirmed</button>
+                         }
+                    </div>
                </div>
           </div>
      );
