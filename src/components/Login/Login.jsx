@@ -3,7 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import './Login.css'
 import img from '../../assets/images/login/login.svg'
 import { AiFillEyeInvisible, AiOutlineGithub, AiFillEye } from 'react-icons/ai'
-import {ImGoogle2} from 'react-icons/im'
+import { ImGoogle2 } from 'react-icons/im'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
@@ -18,7 +18,7 @@ const Login = () => {
      const location = useLocation()
      const navigate = useNavigate()
 
-     const {signIn, resetPassword, googlSignIn, githubSingIn } = useContext(AuthContext)
+     const { signIn, resetPassword, googlSignIn, githubSingIn } = useContext(AuthContext)
      const from = location.state?.from?.pathname || '/';
      const emailRef = useRef();
 
@@ -43,15 +43,35 @@ const Login = () => {
 
           // Signed in part start
           signIn(email, password)
-
                .then((userCredential) => {
                     const currentUser = userCredential.user;
+
+                    // // jwt part start
+                    // const loggedUser = {
+                    //      email: user.email
+                    // }
+
+                    // // navigate(from, { replace: true });
+
+                    // fetch('https://mren-server-project.vercel.app/jwt', {
+                    //      method: 'POST',
+                    //      headers: {
+                    //           'content-type': 'application/json'
+                    //      },
+                    //      body: JSON.stringify(loggedUser)
+                    // })
+                    // .then(res => res.json())
+                    // .then(data =>{
+                    //      localStorage.setItem('car-access-token', data.token);
+                    // })
+                    // // jwt part end
+
 
                     // if (!currentUser.emailVerified) {
                     //      alert('not email')
                     //      return
                     // }
-                    
+
                     if (currentUser) {
                          Swal.fire({
                               title: 'Success!',
@@ -91,7 +111,7 @@ const Login = () => {
           googlSignIn()
                .then((result) => {
                     const user = result.user;
-                    
+
                     if (user) {
                          Swal.fire({
                               title: 'Success!',
@@ -199,15 +219,15 @@ const Login = () => {
                                              <b>Sign In</b>
                                         </Button>
                                         <div>
-                                        <small>Create your new Password?</small>
-                                        <button onClick={handelResetPassword} className='btn btn-link'>Reset Password</button>
-                                   </div>
+                                             <small>Create your new Password?</small>
+                                             <button onClick={handelResetPassword} className='btn btn-link'>Reset Password</button>
+                                        </div>
                                         <div className="d-grid gap-2 mt-3 mb-2 col-9 mx-auto">
-                                        <Button onClick={handelGoogleRegister} className="btn btn-success" type="button"> <span className=' fs-5 text-light'><ImGoogle2 /></span> Sign-in with Google</Button>
-                                   </div>
+                                             <Button onClick={handelGoogleRegister} className="btn btn-success" type="button"> <span className=' fs-5 text-light'><ImGoogle2 /></span> Sign-in with Google</Button>
+                                        </div>
                                         <div className="d-grid gap-2 mb-3 col-9 mx-auto">
-                                        <Button onClick={handelGitHubRegister} className="btn btn-dark" type="button"> <span className=' fs-5 text-light'><AiOutlineGithub /></span> Sign-in with GitHub</Button>
-                                   </div>
+                                             <Button onClick={handelGitHubRegister} className="btn btn-dark" type="button"> <span className=' fs-5 text-light'><AiOutlineGithub /></span> Sign-in with GitHub</Button>
+                                        </div>
                                         <div className=' my-3 text-center'>
                                              <small className='me-1 fs-6'>Have an account? </small>
                                              <Link to='/register' className=' text-decoration-none text-danger fw-semibold'>Register</Link>
