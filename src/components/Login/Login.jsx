@@ -46,25 +46,23 @@ const Login = () => {
                .then((userCredential) => {
                     const currentUser = userCredential.user;
 
-                    // // jwt part start
-                    // const loggedUser = {
-                    //      email: user.email
-                    // }
 
-                    // // navigate(from, { replace: true });
+                    const loggedUser = {
+                         email: currentUser.email
+                    }
 
-                    // fetch('https://mren-server-project.vercel.app/jwt', {
-                    //      method: 'POST',
-                    //      headers: {
-                    //           'content-type': 'application/json'
-                    //      },
-                    //      body: JSON.stringify(loggedUser)
-                    // })
-                    // .then(res => res.json())
-                    // .then(data =>{
-                    //      localStorage.setItem('car-access-token', data.token);
-                    // })
-                    // // jwt part end
+                    fetch('http://localhost:5000/jwt', {
+                         method: 'POST',
+                         headers: {
+                              'content-type': 'application/json'
+                         },
+                         body: JSON.stringify(loggedUser)
+                    })
+                         .then(res => res.json())
+                         .then(data => {
+                              console.log(data);
+                              localStorage.setItem('car-access-token', data.token);
+                         })
 
 
                     // if (!currentUser.emailVerified) {
