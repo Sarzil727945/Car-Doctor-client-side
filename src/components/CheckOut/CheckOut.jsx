@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import './CheckOut.css'
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
 
 const CheckOut = () => {
 
+     const navigate = useNavigate();
      const { user } = useContext(AuthContext)
      const car = useLoaderData();
      const { _id, img, price, title} = car;
@@ -51,12 +52,12 @@ const CheckOut = () => {
                          confirmButtonText: 'Ok'
                     }) 
                }
+               navigate('/bookings')
+
           })
 
           form.reset();
          
-          console.log(order);
-
      }
 
      return (
@@ -66,27 +67,27 @@ const CheckOut = () => {
                </div>
                <div className='checkoutForm rounded'>
                     <form className='p-lg-5 mx-lg-5' onSubmit={formHandel}>
-                         <div class="row px-4 pt-4">
-                              <div class="col-lg mb-2">
-                                   <input type="text" name='fastName' class="form-control py-2" placeholder="First name" aria-label="First name" required />
+                         <div className="row px-4 pt-4">
+                              <div className="col-lg mb-2">
+                                   <input type="text" name='fastName' className="form-control py-2" placeholder="First name" aria-label="First name" required />
                               </div>
-                              <div class="col-lg">
-                                   <input type="text" name='lastName' class="form-control py-2" placeholder="Last name" aria-label="Last name" required />
-                              </div>
-                         </div>
-                         <div class="row px-4 py-4">
-                              <div class="col-lg mb-2">
-                                   <input type="number" name='number' class="form-control py-2" placeholder="Your Phone" aria-label="First name" required />
-                              </div>
-                              <div class="col-lg">
-                                   <input type="date" name='date' class="form-control py-2" placeholder="date" aria-label="Last name" required />
+                              <div className="col-lg">
+                                   <input type="text" name='lastName' className="form-control py-2" placeholder="Last name" aria-label="Last name" required />
                               </div>
                          </div>
-                         <div class="mb-3 px-4 pb-3">
-                              <textarea name='message' class="form-control py-2" id="validationTextarea" placeholder="Your Message" required rows="5"></textarea>
+                         <div className="row px-4 py-4">
+                              <div className="col-lg mb-2">
+                                   <input type="number" name='number' className="form-control py-2" placeholder="Your Phone" aria-label="First name" required />
+                              </div>
+                              <div className="col-lg">
+                                   <input type="date" name='date' className="form-control py-2" placeholder="date" aria-label="Last name" required />
+                              </div>
+                         </div>
+                         <div className="mb-3 px-4 pb-3">
+                              <textarea name='message' className="form-control py-2" id="validationTextarea" placeholder="Your Message" required rows="5"></textarea>
                          </div>
                          <div className='px-4'>
-                              <button type="submit" class="btn btn-danger w-100 py-2 fw-semibold">Order Confirm</button>
+                              <button type="submit" className="btn btn-danger w-100 py-2 fw-semibold">Order Confirm</button>
                          </div>
                     </form>
                </div>

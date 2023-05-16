@@ -27,7 +27,7 @@ const SubBookings = ({ data, handelDelete, handelUpdate }) => {
                     <div className="col-lg-2 fw-semibold">
                          {
                               status === 'confirm' ? <span className=' fw-bold text-danger'>Confirmed</span> :
-                              <button onClick={() => handelUpdate(_id)} type="button" class="btn btn-danger">Please Confirmed</button>
+                              <button onClick={() => handelUpdate(_id)} type="button" className="btn btn-danger">Please Confirmed</button>
                          }
                     </div>
                </div>

@@ -1,17 +1,40 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import SubBookings from './SubBookings/SubBookings';
+import { useNavigate } from 'react-router-dom';
 
 const Bookings = () => {
      const { user } = useContext(AuthContext);
      const [bookings, setBookings] = useState([])
+     const navigate = useNavigate()
 
+     // const url = `https://mren-server-project.vercel.app/bookings?email=${user.email}`;
+     // useEffect(() => {
+     //      fetch(url)
+     //           .then(res => res.json())
+     //           .then(data => setBookings(data))
+     // }, []);
+
+     // jwt add start 
      const url = `https://mren-server-project.vercel.app/bookings?email=${user.email}`;
      useEffect(() => {
-          fetch(url)
+          fetch(url, {
+               method: 'GET',
+               headers: {
+                    authorization: `Bearer ${localStorage.getItem('car-access-token')}`
+               }
+          })
                .then(res => res.json())
-               .then(data => setBookings(data))
+               .then(data => {
+                    if (!data.error) {
+                         setBookings(data)
+                    }
+                    else{
+                         navigate('/')
+                    }
+               })
      }, []);
+     // jwt add end
 
      // server data delete start
      const handelDelete = (id) => {
@@ -22,7 +45,6 @@ const Bookings = () => {
                })
                     .then(res => res.json())
                     .then(data => {
-                         console.log(data)
                          if (data.deletedCount > 0) {
                             alert('delete successful');
                             const remaining = bookings.filter(booking => booking._id !== id)
@@ -45,7 +67,6 @@ const Bookings = () => {
           })
           .then(res => res.json())
           .then(data =>{
-               console.log(data);
                if (data.modifiedCount > 0) {
                    const remaining = bookings.filter(booking => booking._id !== id);
                    const updated = bookings.find(booking => booking._id === id);
