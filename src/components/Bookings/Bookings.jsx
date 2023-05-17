@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import SubBookings from './SubBookings/SubBookings';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Bookings = () => {
      const { user } = useContext(AuthContext);
@@ -29,7 +30,7 @@ const Bookings = () => {
                     if (!data.error) {
                          setBookings(data)
                     }
-                    else{
+                    else {
                          navigate('/')
                     }
                })
@@ -38,43 +39,59 @@ const Bookings = () => {
 
      // server data delete start
      const handelDelete = (id) => {
-          const proceed = confirm('are you sure')
-          if (proceed) {
-               fetch(`https://mren-server-project.vercel.app/bookings/${id}`, {
-                    method: 'DELETE'
-               })
-                    .then(res => res.json())
-                    .then(data => {
-                         if (data.deletedCount > 0) {
-                            alert('delete successful');
-                            const remaining = bookings.filter(booking => booking._id !== id)
-                            setBookings(remaining);
-                         }
-                    })
+          Swal.fire({
+               title: 'Are you sure?',
+               text: "You won't be able to revert this!",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#3085d6',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+               if (result.isConfirmed) {
 
-          }
+                    fetch(`https://mren-server-project.vercel.app/bookings/${id}`, {
+                         method: 'DELETE'
+                    })
+                         .then(res => res.json())
+                         .then(data => {
+                              if (data.deletedCount > 0) {
+                                   Swal.fire(
+                                        'Deleted!',
+                                        'Your file has been deleted.',
+                                        'success'
+                                   )
+
+                                   const remaining = bookings.filter(booking => booking._id !== id)
+                                   setBookings(remaining);
+                              }
+                         })
+               }
+
+          })
+
      }
      // server data delete end
 
      // server data update start
-     const handelUpdate = (id) =>{
+     const handelUpdate = (id) => {
           fetch(`https://mren-server-project.vercel.app/bookings/${id}`, {
                method: 'PATCH',
-               headers:{
-                    'content-type':'application/json'
+               headers: {
+                    'content-type': 'application/json'
                },
-               body: JSON.stringify({status: 'confirm'})
+               body: JSON.stringify({ status: 'confirm' })
           })
-          .then(res => res.json())
-          .then(data =>{
-               if (data.modifiedCount > 0) {
-                   const remaining = bookings.filter(booking => booking._id !== id);
-                   const updated = bookings.find(booking => booking._id === id);
-                   updated.status= 'confirm'
-                   const newBookings = [updated, ...remaining];
-                   setBookings(newBookings);
-               }
-          })
+               .then(res => res.json())
+               .then(data => {
+                    if (data.modifiedCount > 0) {
+                         const remaining = bookings.filter(booking => booking._id !== id);
+                         const updated = bookings.find(booking => booking._id === id);
+                         updated.status = 'confirm'
+                         const newBookings = [updated, ...remaining];
+                         setBookings(newBookings);
+                    }
+               })
      }
      // server data update end
 
