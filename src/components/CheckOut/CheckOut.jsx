@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './CheckOut.css'
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
 
@@ -8,8 +8,25 @@ const CheckOut = () => {
 
      const navigate = useNavigate();
      const { user } = useContext(AuthContext)
-     const car = useLoaderData();
-     const { _id, img, price, title} = car;
+     const { id } = useParams();
+     const [carData, setCarData] = useState([]);
+
+     useEffect(()=>{
+          const carData = async () => {
+               const chefData = await fetch('https://car-doctor-server-side-sarzil727945.vercel.app/server')
+               const chef = await chefData.json()
+     
+               if (id) {
+                    const foundCar = chef.find(dt => dt?._id === id)
+                    setCarData(foundCar)
+               }
+     
+          }
+          carData()
+     }, [])
+
+     console.log(carData);
+     const { _id, img, price, title} = carData;
 
      const formHandel = (event) => {
           event.preventDefault();
@@ -35,7 +52,7 @@ const CheckOut = () => {
           }
 
           // server data post 
-          fetch('https://mren-server-project.vercel.app/bookings', {
+          fetch('https://car-doctor-server-side-sarzil727945.vercel.app/bookings', {
                method:'POST',
                headers:{
                     'content-type':'application/json'

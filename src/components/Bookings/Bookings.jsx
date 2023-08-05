@@ -17,7 +17,7 @@ const Bookings = () => {
      // }, []);
 
      // jwt add start 
-     const url = `https://mren-server-project.vercel.app/bookings?email=${user.email}`;
+     const url = `https://car-doctor-server-side-sarzil727945.vercel.app/bookings?email=${user.email}`;
      useEffect(() => {
           fetch(url, {
                method: 'GET',
@@ -50,7 +50,7 @@ const Bookings = () => {
           }).then((result) => {
                if (result.isConfirmed) {
 
-                    fetch(`https://mren-server-project.vercel.app/bookings/${id}`, {
+                    fetch(`https://car-doctor-server-side-sarzil727945.vercel.app/bookings/${id}`, {
                          method: 'DELETE'
                     })
                          .then(res => res.json())
@@ -75,7 +75,7 @@ const Bookings = () => {
 
      // server data update start
      const handelUpdate = (id) => {
-          fetch(`https://mren-server-project.vercel.app/bookings/${id}`, {
+          fetch(`https://car-doctor-server-side-sarzil727945.vercel.app/bookings/${id}`, {
                method: 'PATCH',
                headers: {
                     'content-type': 'application/json'
@@ -97,7 +97,7 @@ const Bookings = () => {
 
      return (
           <div className='mt-5 pt-5 container'>
-               <h1 className='mt-5'>booking</h1>
+               <h1 className='mt-5 text-center text-success'>MY Booking</h1>
 
                <section>
                     <div className="row my-5 bg-light p-4 fw-semibold">

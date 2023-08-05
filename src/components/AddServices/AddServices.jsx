@@ -12,28 +12,24 @@ const AddServices = () => {
 
           event.preventDefault();
           const form = event.target;
-          const fastName = form.fastName.value;
-          const lastName = form.lastName.value;
-          const number = form.number.value;
+          const img = form.img.value;
+          const title = form.serviceName.value;
+          const price = form.servicePrice.value;
+          const serviceType = form.serviceType.value;
           const email = user?.email;
-          const date = form.date.value;
-          const message = form.message.value;
+          const description = form.message.value;
 
           const add = {
-               productId: _id,
-               price: `$${price}`,
-               fastName,
-               lastName,
-               number,
-               email,
-               date,
-               message,
-               img,
                title,
+               price,
+               email,
+               serviceType,
+               description,
+               img,
           }
-
+          
           // server data post 
-          fetch('https://mren-server-project.vercel.app/bookings', {
+          fetch('https://car-doctor-server-side-sarzil727945.vercel.app/server', {
                method: 'POST',
                headers: {
                     'content-type': 'application/json'
@@ -45,12 +41,12 @@ const AddServices = () => {
                     if (data.insertedId) {
                          Swal.fire({
                               title: 'Success!',
-                              text: 'Your Order Success !!',
+                              text: 'Your Add Services Success !!',
                               icon: 'success',
                               confirmButtonText: 'Ok'
                          })
                     }
-                    navigate('/bookings')
+                    navigate('/')
                })
           form.reset();
      }
@@ -71,10 +67,10 @@ const AddServices = () => {
                          </div>
                          <div className="row px-4 py-4">
                               <div className="col-lg mb-2">
-                                   <input type="file" name='img' className="form-control py-2" placeholder="Text here" aria-label="Text here" required />
+                                   <input type="text" name='img' className="form-control py-2" placeholder="Text here" aria-label="Text here" required />
                               </div>
                               <div className="col-lg">
-                                   <input type=" text" name='ServiceType' className="form-control py-2" placeholder="Service Type" aria-label="Service Type" required />
+                                   <input type=" text" name='serviceType' className="form-control py-2" placeholder="Service Type" aria-label="Service Type" required />
                               </div>
                          </div>
                          <div className="mb-3 px-4 pb-3">
