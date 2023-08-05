@@ -48,8 +48,8 @@ const Header = () => {
                                         (user?.email) &&
                                              <ActiveLink to="/bookings">My Bookings</ActiveLink>
                                    }
-                                   <ActiveLink to="/about">About</ActiveLink>
-                                   <ActiveLink to="/services">Services</ActiveLink>
+                                   {/* <ActiveLink to="/about">About</ActiveLink> */}
+                                   <ActiveLink to="/add">Add Services</ActiveLink>
                                    <ActiveLink to="/blog">Blog</ActiveLink>
                                    <ActiveLink to="/contact">Contact</ActiveLink>
 
